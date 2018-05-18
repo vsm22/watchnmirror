@@ -97,7 +97,7 @@ while read event; do
             fi 
             ;;
 
-        "MODIFY" | "CREATE" )
+        "MODIFY" | "CREATE" | "ATTRIB" )
             if [[ $MOVE_FROM != '' ]]; then
                 rm -rf $DEST_DIR/$MOVE_FROM
                 MOVE_FROM=''
@@ -108,4 +108,4 @@ while read event; do
             ;;
     esac
 
-done < <( inotifywait -d -r -e create -e modify -e move -e delete $SRC_DIR )
+done < <( inotifywait -m -r -e create -e modify -e move -e delete -e attrib $SRC_DIR )
